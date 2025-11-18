@@ -18,163 +18,215 @@ const db = getFirestore(app);
 
 // Datos del examen con diferentes tipos de preguntas
 const examData = {
-    title: "スペイン語初級テスト",
+    title: "日本語初級テスト - Examen Básico de Japonés",
     questions: [
         {
             id: 1,
             type: "multiple",
-            text: "スペイン語で『私は食べます』は何と言いますか？",
+            text: "¿Cómo se dice 'Yo como' en japonés?",
             options: [
-                "Yo como",
-                "Yo bebo", 
-                "Yo hablo",
-                "Yo duermo"
+                "Watashi wa tabemasu (私は食べます)",
+                "Watashi wa nomimasu (私は飲みます)", 
+                "Watashi wa hanashimasu (私は話します)",
+                "Watashi wa asobimasu (私は遊びます)"
             ],
             correctAnswer: 0,
-            explanation: "『Yo como』は『私は食べます』という意味です。『comer』は『食べる』という動詞です。"
+            explanation: "'Watashi wa tabemasu' significa 'Yo como'. 'Tabemasu' es la forma educada del verbo 'comer'."
         },
         {
             id: 2,
             type: "multiple",
-            text: "『Ella habla』の意味はどれですか？",
+            text: "¿Qué significa 'Kanojo wa hanashimasu (彼女は話します)'?",
             options: [
-                "彼女は話します",
-                "彼女は食べます", 
-                "彼女は寝ます",
-                "彼女は遊びます"
+                "Ella habla",
+                "Ella come", 
+                "Ella duerme",
+                "Ella juega"
             ],
             correctAnswer: 0,
-            explanation: "『hablar』は『話す』という動詞です。『Ella』は『彼女』を意味します。"
+            explanation: "'Kanojo' significa 'ella' y 'hanashimasu' significa 'habla'. La partícula 'wa' marca el tema de la oración."
         },
         {
             id: 3,
             type: "truefalse",
-            text: "『Nosotros jugamos』は『私たちは遊びます』という意味です。",
+            text: "'Watashitachi wa asobimasu (私たちは遊びます)' significa 'Nosotros jugamos'.",
             correctAnswer: 0,
-            explanation: "正解です！『jugar』は『遊ぶ』、『Nosotros』は『私たち』という意味です。"
+            explanation: "¡Correcto! 'Watashitachi' es 'nosotros', 'asobimasu' es 'jugamos'."
         },
         {
             id: 4,
             type: "fillblank",
-            text: "スペイン語で『水』は________です。",
-            correctAnswer: "agua",
-            explanation: "『agua』はスペイン語で『水』を意味します。女性名詞ですが、定冠詞は『el agua』のように男性形を使います。"
+            text: "La forma en diccionario del verbo 'beber' en japonés es ________.",
+            correctAnswer: "nomu",
+            explanation: "'Nomu' (飲む) es la forma básica o de diccionario. 'Nomimasu' es la forma educada."
         },
         {
             id: 5,
             type: "dragdrop",
-            text: "スペイン語の動詞を正しい意味にドラッグしてください: ________ は『食べる』、________ は『飲む』、________ は『話す』",
+            text: "Arrastra los verbos a sus significados correctos: ________ significa 'dormir', ________ significa 'ver/mirar', ________ significa 'escuchar'.",
             parts: [
-                { text: "comer", correctPosition: 0 },
-                { text: "beber", correctPosition: 1 },
-                { text: "hablar", correctPosition: 2 }
+                { text: "nemasu", correctPosition: 0 },
+                { text: "mimasu", correctPosition: 1 },
+                { text: "kikimasu", correctPosition: 2 }
             ],
-            options: ["comer", "beber", "hablar", "dormir", "jugar"],
-            explanation: "基本動詞の確認: comer(食べる), beber(飲む), hablar(話す), dormir(寝る), jugar(遊ぶ)"
+            options: ["nemasu", "mimasu", "kikimasu", "ikimasu", "kimasu"],
+            explanation: "Verbos básicos: nemasu(寝ます - dormir), mimasu(見ます - ver), kikimasu(聞きます - escuchar)"
         },
         {
             id: 6,
             type: "multiple",
-            text: "『Yo bebo agua』の正しい日本語訳はどれですか？",
+            text: "¿Qué verbo se usa para seres vivos en 'estar/en un lugar'?",
             options: [
-                "私は水を飲みます",
-                "私は水を食べます", 
-                "私は水を見ます",
-                "私は水を聞きます"
+                "iru (いる)",
+                "aru (ある)", 
+                "suru (する)",
+                "kuru (来る)"
             ],
             correctAnswer: 0,
-            explanation: "『beber』は『飲む』、『agua』は『水』を意味します。英語の『drink』に相当します。"
+            explanation: "'Iru' se usa para seres vivos, 'aru' para objetos y cosas. Ejemplo: 'Watashi wa niwa ni imasu' (Estoy en el jardín)."
         },
         {
             id: 7,
             type: "truefalse",
-            text: "スペイン語の『ser』と『estar』は両方とも『です』という意味です。",
+            text: "En japonés, 'desu (です)' solo se usa para describir objetos.",
             correctAnswer: 1,
-            explanation: "『ser』は永続的な特性（国籍、職業など）、『estar』は一時的な状態（場所、感情など）に使います。日本語の『です』とは使い方が異なります。"
+            explanation: "'Desu' es una cópula que se usa tanto para objetos como para personas. Es similar al verbo 'ser' en español pero con usos diferentes."
         },
         {
             id: 8,
             type: "fillblank",
-            text: "スペイン語で『寝る』は________です。",
-            correctAnswer: "dormir",
-            explanation: "『dormir』は『寝る』という意味の動詞です。不規則動詞で、『yo duermo』（私は寝ます）のように変化します。"
+            text: "La partícula que indica el objeto directo en japonés es ________.",
+            correctAnswer: "o",
+            explanation: "La partícula 'o' (を) marca el objeto directo. Ejemplo: 'Hon o yomimasu' (Leo un libro)."
         },
         {
             id: 9,
             type: "dragdrop",
-            text: "代名詞を正しいスペイン語にドラッグしてください: ________ は『私』、________ は『あなた』、________ は『彼』",
+            text: "Arrastra los pronombres a sus traducciones correctas: ________ significa 'Yo', ________ significa 'Tú/Usted', ________ significa 'Él'.",
             parts: [
-                { text: "yo", correctPosition: 0 },
-                { text: "tú", correctPosition: 1 },
-                { text: "él", correctPosition: 2 }
+                { text: "watashi", correctPosition: 0 },
+                { text: "anata", correctPosition: 1 },
+                { text: "kare", correctPosition: 2 }
             ],
-            options: ["yo", "tú", "él", "ella", "nosotros"],
-            explanation: "主語代名詞: yo(私), tú(君/あなた), él(彼), ella(彼女), nosotros(私たち)"
+            options: ["watashi", "anata", "kare", "kanojo", "watashitachi"],
+            explanation: "Pronombres básicos: watashi(私 - yo), anata(あなた - tú/usted), kare(彼 - él)"
         },
         {
             id: 10,
             type: "multiple",
-            text: "『Ellos ven la televisión』の意味は何ですか？",
+            text: "¿Cómo se dice 'agua' en japonés?",
             options: [
-                "彼らはテレビを見ます",
-                "彼らはテレビを聞きます", 
-                "彼らはテレビを食べます",
-                "彼らはテレビで遊びます"
+                "Mizu (水)",
+                "Kōhī (コーヒー)", 
+                "Ocha (お茶)",
+                "Gyuunyuu (牛乳)"
             ],
             correctAnswer: 0,
-            explanation: "『ver』は『見る』、『la televisión』は『テレビ』を意味します。『Ellos』は『彼ら』（男性）です。"
+            explanation: "'Mizu' significa 'agua'. 'Ocha' es 'té verde', 'kōhī' es 'café', 'gyuunyuu' es 'leche'."
         },
         {
             id: 11,
             type: "fillblank",
-            text: "スペイン語で『聞く』は________です。",
-            correctAnswer: "escuchar",
-            explanation: "『escuchar』は『聞く、聴く』という意味です。『oír』も『聞く』ですが、『escuchar』は注意して聞くニュアンスがあります。"
+            text: "El verbo 'hacer' en japonés es ________.",
+            correctAnswer: "suru",
+            explanation: "'Suru' (する) significa 'hacer'. Es un verbo muy versátil que se combina con muchas palabras para formar verbos compuestos."
         },
         {
             id: 12,
             type: "multiple",
-            text: "『Gracias』の正しい返事はどれですか？",
+            text: "¿Qué partícula indica la dirección hacia donde se va?",
             options: [
-                "De nada",
-                "Por favor", 
-                "Lo siento",
-                "Buenos días"
+                "ni (に)",
+                "wa (は)", 
+                "ga (が)",
+                "o (を)"
             ],
             correctAnswer: 0,
-            explanation: "『Gracias』（ありがとう）に対する返事は『De nada』（どういたしまして）です。"
+            explanation: "La partícula 'ni' indica dirección o destino. Ejemplo: 'Nihon ni ikimasu' (Voy a Japón)."
         },
         {
             id: 13,
             type: "truefalse",
-            text: "『Buenos días』は夜にも使えます。",
-            correctAnswer: 1,
-            explanation: "『Buenos días』は朝（〜正午頃まで）に使う挨拶です。昼は『Buenas tardes』、夜は『Buenas noches』を使います。"
+            text: "'Ohayou gozaimasu' se puede usar solo por la mañana.",
+            correctAnswer: 0,
+            explanation: "Correcto. 'Ohayou gozaimasu' (おはようございます) es el saludo formal de 'buenos días' y se usa solo por la mañana."
         },
         {
             id: 14,
             type: "dragdrop",
-            text: "あいさつを正しいスペイン語にドラッグしてください: ________ は『おはよう』、________ は『こんにちは』、________ は『こんばんは』",
+            text: "Arrastra los números a sus equivalentes correctos: ________ es 'uno', ________ es 'dos', ________ es 'tres'.",
             parts: [
-                { text: "Buenos días", correctPosition: 0 },
-                { text: "Buenas tardes", correctPosition: 1 },
-                { text: "Buenas noches", correctPosition: 2 }
+                { text: "ichi", correctPosition: 0 },
+                { text: "ni", correctPosition: 1 },
+                { text: "san", correctPosition: 2 }
             ],
-            options: ["Buenos días", "Buenas tardes", "Buenas noches", "Hola", "Adiós"],
-            explanation: "時間帯による挨拶: Buenos días(おはよう), Buenas tardes(こんにちは), Buenas noches(こんばんは)"
+            options: ["ichi", "ni", "san", "shi", "go"],
+            explanation: "Números básicos: ichi(1), ni(2), san(3), shi/yon(4), go(5)"
         },
         {
             id: 15,
             type: "multiple",
-            text: "スペイン語で『私は日本語を話します』は何と言いますか？",
+            text: "¿Cómo se dice 'Me llamo Juan' en japonés?",
             options: [
-                "Yo hablo japonés",
-                "Yo como japonés", 
-                "Yo bebo japonés",
-                "Yo veo japonés"
+                "Watashi wa Juan desu",
+                "Watashi wa Juan imasu", 
+                "Watashi wa Juan arimasu",
+                "Watashi wa Juan shimasu"
             ],
             correctAnswer: 0,
-            explanation: "『hablar』は『話す』、『japonés』は『日本語』を意味します。言語を話す場合は『hablar + 言語名』を使います。"
+            explanation: "Para presentarse se usa 'Watashi wa [nombre] desu'. 'Desu' es la cópula que equivale a 'ser' en este contexto."
+        },
+        {
+            id: 16,
+            type: "fillblank",
+            text: "La partícula que marca el sujeto en una oración es ________.",
+            correctAnswer: "ga",
+            explanation: "La partícula 'ga' (が) marca el sujeto gramatical de la oración. A veces se usa 'wa' para el tema, lo que puede crear confusión para aprendices."
+        },
+        {
+            id: 17,
+            type: "multiple",
+            text: "¿Qué significa 'Itadakimasu'?",
+            options: [
+                "Se dice antes de comer",
+                "Se dice al llegar a casa", 
+                "Se dice al irse",
+                "Se dice al despertarse"
+            ],
+            correctAnswer: 0,
+            explanation: "'Itadakimasu' (いただきます) es una expresión que se dice antes de comer, mostrando gratitud por la comida."
+        },
+        {
+            id: 18,
+            type: "truefalse",
+            text: "En japonés, los adjetivos se conjugan como verbos.",
+            correctAnswer: 0,
+            explanation: "Correcto. Los adjetivos en japonés se conjugan para indicar tiempo y forma negativa/afirmativa, similar a los verbos."
+        },
+        {
+            id: 19,
+            type: "dragdrop",
+            text: "Arrastra los saludos a sus momentos correctos: ________ para la mañana, ________ para la tarde, ________ para la noche.",
+            parts: [
+                { text: "Ohayou gozaimasu", correctPosition: 0 },
+                { text: "Konnichiwa", correctPosition: 1 },
+                { text: "Konbanwa", correctPosition: 2 }
+            ],
+            options: ["Ohayou gozaimasu", "Konnichiwa", "Konbanwa", "Sayounara", "Oyasumi nasai"],
+            explanation: "Saludos por tiempo: Ohayou gozaimasu(buenos días), Konnichiwa(buenas tardes), Konbanwa(buenas noches al encontrarse)"
+        },
+        {
+            id: 20,
+            type: "multiple",
+            text: "¿Cómo se dice 'Gracias' en japonés de forma formal?",
+            options: [
+                "Arigatou gozaimasu",
+                "Arigatou", 
+                "Doumo",
+                "Sumimasen"
+            ],
+            correctAnswer: 0,
+            explanation: "'Arigatou gozaimasu' (ありがとうございます) es la forma formal de 'gracias'. 'Arigatou' es informal, 'doumo' es muy casual."
         }
     ]
 };
@@ -625,4 +677,5 @@ if ('mediaSession' in navigator) {
     } catch (e) {
         // Ignorar el error
     }
+
 }
