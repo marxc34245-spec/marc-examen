@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Personal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
+    <!-- Agregar fuentes femeninas/serif + sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Examen de Miya </h1>
+            <p>Responde con calma y cariño. Al finalizar, envía tus respuestas.</p>
+        </header>
+        
+        <div class="exam-info">
+            <p><strong>Instrucciones:</strong></p>
+            <ul>
+                <li>Selecciona una respuesta para cada pregunta</li>
+                <li>Puedes navegar entre preguntas usando los botones "Anterior" y "Siguiente"</li>
+                <li>Al finalizar, haz clic en "Enviar Examen"</li>
+                <li>Los resultados se enviaran a Marc</li>
+            </ul>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        
+        <div id="question-container" class="question-container">
+            <!-- Las preguntas se cargarán aquí dinámicamente -->
+        </div>
+        
+        <div class="navigation">
+            <button id="prev-btn" disabled>Anterior</button>
+            <button id="next-btn">Siguiente</button>
+        </div>
+        
+        <button id="submit-btn">Enviar Examen</button>
+        
+        <div id="results-container" class="results-container">
+            <h2>Resultados del Examen</h2>
+            <div class="score" id="score"></div>
+            <div id="incorrect-questions" class="incorrect-questions"></div>
+        </div>
+    </div>
+
+        <!-- Adorno: gato explicador (decorativo) -->
+<img id="decor-cat" src="gatoexplicado.png" alt="Gato explicador" aria-hidden="true">
+    <!-- Firebase SDK -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
