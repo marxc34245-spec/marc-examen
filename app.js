@@ -17,216 +17,165 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Datos del examen con diferentes tipos de preguntas
+// Datos del examen para practicar japonés - Verbos y Pronombres
 const examData = {
-    title: "日本語初級テスト - Examen Básico de Japonés",
+    title: "日本語テスト - Verbos y Pronombres",
     questions: [
         {
             id: 1,
             type: "multiple",
-            text: "¿Cómo se dice 'Yo como' en japonés?",
+            text: "¿Cómo se dice 'yo' en japonés?",
             options: [
-                "Watashi wa tabemasu (私は食べます)",
-                "Watashi wa nomimasu (私は飲みます)", 
-                "Watashi wa hanashimasu (私は話します)",
-                "Watashi wa asobimasu (私は遊びます)"
+                "watashi (私)",
+                "anata (あなた)", 
+                "kare (彼)",
+                "kanojo (彼女)"
             ],
             correctAnswer: 0,
-            explanation: "'Watashi wa tabemasu' significa 'Yo como'. 'Tabemasu' es la forma educada del verbo 'comer'."
+            explanation: "『watashi』(私) significa 'yo' en japonés, es formal/neutral."
         },
         {
             id: 2,
             type: "multiple",
-            text: "¿Qué significa 'Kanojo wa hanashimasu (彼女は話します)'?",
+            text: "¿Cuál es la forma educada de 'comer' en japonés?",
             options: [
-                "Ella habla",
-                "Ella come", 
-                "Ella duerme",
-                "Ella juega"
+                "tabemasu (食べます)",
+                "taberu (食べる)", 
+                "nomimasu (飲みます)",
+                "nemasu (寝ます)"
             ],
             correctAnswer: 0,
-            explanation: "'Kanojo' significa 'ella' y 'hanashimasu' significa 'habla'. La partícula 'wa' marca el tema de la oración."
+            explanation: "『tabemasu』(食べます) es la forma educada/polite de 'comer'."
         },
         {
             id: 3,
             type: "truefalse",
-            text: "'Watashitachi wa asobimasu (私たちは遊びます)' significa 'Nosotros jugamos'.",
+            text: "『iru』(いる) se usa solo para seres vivos.",
             correctAnswer: 0,
-            explanation: "¡Correcto! 'Watashitachi' es 'nosotros', 'asobimasu' es 'jugamos'."
+            explanation: "Verdadero. 『iru』 se usa para seres vivos, 『aru』 para objetos y cosas."
         },
         {
             id: 4,
             type: "fillblank",
-            text: "La forma en diccionario del verbo 'beber' en japonés es ________.",
+            text: "La forma diccionario de '飲みます' (beber) es: ________",
             correctAnswer: "nomu",
-            explanation: "'Nomu' (飲む) es la forma básica o de diccionario. 'Nomimasu' es la forma educada."
+            explanation: "『nomimasu』(飲みます) es la forma educada, 『nomu』(飲む) es la forma diccionario."
         },
         {
             id: 5,
             type: "dragdrop",
-            text: "Arrastra los verbos a sus significados correctos: ________ significa 'dormir', ________ significa 'ver/mirar', ________ significa 'escuchar'.",
+            text: "Empareja los verbos: ________ significa 'hablar', ________ significa 'dormir', ________ significa 'jugar'",
             parts: [
-                { text: "nemasu", correctPosition: 0 },
-                { text: "mimasu", correctPosition: 1 },
-                { text: "kikimasu", correctPosition: 2 }
+                { text: "hanasu", correctPosition: 0 },
+                { text: "neru", correctPosition: 1 },
+                { text: "asobu", correctPosition: 2 }
             ],
-            options: ["nemasu", "mimasu", "kikimasu", "ikimasu", "kimasu"],
-            explanation: "Verbos básicos: nemasu(寝ます - dormir), mimasu(見ます - ver), kikimasu(聞きます - escuchar)"
+            options: ["hanasu", "neru", "asobu", "suru", "kuru"],
+            explanation: "Verbos básicos: hanasu(hablar), neru(dormir), asobu(jugar), suru(hacer), kuru(venir)"
         },
         {
             id: 6,
             type: "multiple",
-            text: "¿Qué verbo se usa para seres vivos en 'estar/en un lugar'?",
+            text: "¿Cómo se dice 'ellos' en japonés?",
             options: [
-                "iru (いる)",
-                "aru (ある)", 
-                "suru (する)",
-                "kuru (来る)"
+                "karera (彼ら)",
+                "kanojotachi (彼女たち)", 
+                "watashitachi (私たち)",
+                "anatatachi (あなたたち)"
             ],
             correctAnswer: 0,
-            explanation: "'Iru' se usa para seres vivos, 'aru' para objetos y cosas. Ejemplo: 'Watashi wa niwa ni imasu' (Estoy en el jardín)."
+            explanation: "『karera』(彼ら) significa 'ellos' en japonés."
         },
         {
             id: 7,
             type: "truefalse",
-            text: "En japonés, 'desu (です)' solo se usa para describir objetos.",
-            correctAnswer: 1,
-            explanation: "'Desu' es una cópula que se usa tanto para objetos como para personas. Es similar al verbo 'ser' en español pero con usos diferentes."
+            text: "『desu』(です) se usa para describir características permanentes.",
+            correctAnswer: 0,
+            explanation: "Verdadero. 『desu』 es equivalente a 'ser' y se usa para características permanentes."
         },
         {
             id: 8,
             type: "fillblank",
-            text: "La partícula que indica el objeto directo en japonés es ________.",
-            correctAnswer: "o",
-            explanation: "La partícula 'o' (を) marca el objeto directo. Ejemplo: 'Hon o yomimasu' (Leo un libro)."
+            text: "La forma educada de '来る' (venir) es: ________",
+            correctAnswer: "kimasu",
+            explanation: "『kuru』(来る) es forma diccionario, 『kimasu』(来ます) es forma educada."
         },
         {
             id: 9,
             type: "dragdrop",
-            text: "Arrastra los pronombres a sus traducciones correctas: ________ significa 'Yo', ________ significa 'Tú/Usted', ________ significa 'Él'.",
+            text: "Empareja los pronombres: ________ significa 'nosotros', ________ significa 'ella', ________ significa 'tú'",
             parts: [
-                { text: "watashi", correctPosition: 0 },
-                { text: "anata", correctPosition: 1 },
-                { text: "kare", correctPosition: 2 }
+                { text: "watashitachi", correctPosition: 0 },
+                { text: "kanojo", correctPosition: 1 },
+                { text: "anata", correctPosition: 2 }
             ],
-            options: ["watashi", "anata", "kare", "kanojo", "watashitachi"],
-            explanation: "Pronombres básicos: watashi(私 - yo), anata(あなた - tú/usted), kare(彼 - él)"
+            options: ["watashi", "watashitachi", "kanojo", "anata", "kare"],
+            explanation: "Pronombres: watashitachi(nosotros), kanojo(ella), anata(tú/usted)"
         },
         {
             id: 10,
             type: "multiple",
-            text: "¿Cómo se dice 'agua' en japonés?",
+            text: "¿Qué verbo significa 'hacer' en japonés?",
             options: [
-                "Mizu (水)",
-                "Kōhī (コーヒー)", 
-                "Ocha (お茶)",
-                "Gyuunyuu (牛乳)"
+                "suru (する)",
+                "iku (行く)", 
+                "miru (見る)",
+                "kiku (聞く)"
             ],
             correctAnswer: 0,
-            explanation: "'Mizu' significa 'agua'. 'Ocha' es 'té verde', 'kōhī' es 'café', 'gyuunyuu' es 'leche'."
+            explanation: "『suru』(する) significa 'hacer' y es muy común en japonés."
         },
         {
             id: 11,
             type: "fillblank",
-            text: "El verbo 'hacer' en japonés es ________.",
-            correctAnswer: "suru",
-            explanation: "'Suru' (する) significa 'hacer'. Es un verbo muy versátil que se combina con muchas palabras para formar verbos compuestos."
+            text: "La forma diccionario de '行きます' (ir) es: ________",
+            correctAnswer: "iku",
+            explanation: "『ikimasu』(行きます) es forma educada, 『iku』(行く) es forma diccionario."
         },
         {
             id: 12,
             type: "multiple",
-            text: "¿Qué partícula indica la dirección hacia donde se va?",
+            text: "¿Cuál es la diferencia entre 『iru』 y 『aru』?",
             options: [
-                "ni (に)",
-                "wa (は)", 
-                "ga (が)",
-                "o (を)"
+                "『iru』 para seres vivos, 『aru』 para objetos",
+                "『iru』 para objetos, 『aru』 para seres vivos", 
+                "Ambos significan lo mismo",
+                "『iru』 es formal, 『aru』 es informal"
             ],
             correctAnswer: 0,
-            explanation: "La partícula 'ni' indica dirección o destino. Ejemplo: 'Nihon ni ikimasu' (Voy a Japón)."
+            explanation: "『iru』(いる) se usa para seres vivos, 『aru』(ある) para objetos y cosas."
         },
         {
             id: 13,
             type: "truefalse",
-            text: "'Ohayou gozaimasu' se puede usar solo por la mañana.",
+            text: "『tabemasu』 y 『taberu』 significan lo mismo pero en diferentes niveles de formalidad.",
             correctAnswer: 0,
-            explanation: "Correcto. 'Ohayou gozaimasu' (おはようございます) es el saludo formal de 'buenos días' y se usa solo por la mañana."
+            explanation: "Verdadero. 『tabemasu』 es forma educada, 『taberu』 es forma diccionario, ambas significan 'comer'."
         },
         {
             id: 14,
             type: "dragdrop",
-            text: "Arrastra los números a sus equivalentes correctos: ________ es 'uno', ________ es 'dos', ________ es 'tres'.",
+            text: "Empareja las formas: ________ es forma educada de 'ver', ________ es forma diccionario de 'escuchar', ________ es forma educada de 'beber'",
             parts: [
-                { text: "ichi", correctPosition: 0 },
-                { text: "ni", correctPosition: 1 },
-                { text: "san", correctPosition: 2 }
+                { text: "mimasu", correctPosition: 0 },
+                { text: "kiku", correctPosition: 1 },
+                { text: "nomimasu", correctPosition: 2 }
             ],
-            options: ["ichi", "ni", "san", "shi", "go"],
-            explanation: "Números básicos: ichi(1), ni(2), san(3), shi/yon(4), go(5)"
+            options: ["mimasu", "miru", "kikimasu", "kiku", "nomimasu"],
+            explanation: "Formas verbales: mimasu(見ます - ver, educado), kiku(聞く - escuchar, diccionario), nomimasu(飲みます - beber, educado)"
         },
         {
             id: 15,
             type: "multiple",
-            text: "¿Cómo se dice 'Me llamo Juan' en japonés?",
+            text: "¿Cómo se dice 'nosotras' (grupo solo de mujeres) en japonés?",
             options: [
-                "Watashi wa Juan desu",
-                "Watashi wa Juan imasu", 
-                "Watashi wa Juan arimasu",
-                "Watashi wa Juan shimasu"
+                "watashitachi (私たち)",
+                "watashi (私)", 
+                "kanojotachi (彼女たち)",
+                "anatagata (あなたがた)"
             ],
             correctAnswer: 0,
-            explanation: "Para presentarse se usa 'Watashi wa [nombre] desu'. 'Desu' es la cópula que equivale a 'ser' en este contexto."
-        },
-        {
-            id: 16,
-            type: "fillblank",
-            text: "La partícula que marca el sujeto en una oración es ________.",
-            correctAnswer: "ga",
-            explanation: "La partícula 'ga' (が) marca el sujeto gramatical de la oración. A veces se usa 'wa' para el tema, lo que puede crear confusión para aprendices."
-        },
-        {
-            id: 17,
-            type: "multiple",
-            text: "¿Qué significa 'Itadakimasu'?",
-            options: [
-                "Se dice antes de comer",
-                "Se dice al llegar a casa", 
-                "Se dice al irse",
-                "Se dice al despertarse"
-            ],
-            correctAnswer: 0,
-            explanation: "'Itadakimasu' (いただきます) es una expresión que se dice antes de comer, mostrando gratitud por la comida."
-        },
-        {
-            id: 18,
-            type: "truefalse",
-            text: "En japonés, los adjetivos se conjugan como verbos.",
-            correctAnswer: 0,
-            explanation: "Correcto. Los adjetivos en japonés se conjugan para indicar tiempo y forma negativa/afirmativa, similar a los verbos."
-        },
-        {
-            id: 19,
-            type: "dragdrop",
-            text: "Arrastra los saludos a sus momentos correctos: ________ para la mañana, ________ para la tarde, ________ para la noche.",
-            parts: [
-                { text: "Ohayou gozaimasu", correctPosition: 0 },
-                { text: "Konnichiwa", correctPosition: 1 },
-                { text: "Konbanwa", correctPosition: 2 }
-            ],
-            options: ["Ohayou gozaimasu", "Konnichiwa", "Konbanwa", "Sayounara", "Oyasumi nasai"],
-            explanation: "Saludos por tiempo: Ohayou gozaimasu(buenos días), Konnichiwa(buenas tardes), Konbanwa(buenas noches al encontrarse)"
-        },
-        {
-            id: 20,
-            type: "multiple",
-            text: "¿Cómo se dice 'Gracias' en japonés de forma formal?",
-            options: [
-                "Arigatou gozaimasu",
-                "Arigatou", 
-                "Doumo",
-                "Sumimasen"
-            ],
-            correctAnswer: 0,
-            explanation: "'Arigatou gozaimasu' (ありがとうございます) es la forma formal de 'gracias'. 'Arigatou' es informal, 'doumo' es muy casual."
+            explanation: "『watashitachi』(私たち) se usa para 'nosotros/nosotras'. El japonés no suele diferenciar género en primera persona plural."
         }
     ]
 };
@@ -719,3 +668,4 @@ async function saveResultsToFirestore(results) {
 
 // Inicializar la aplicación
 displayQuestion();
+
