@@ -61,18 +61,18 @@ const examData = {
             correctAnswer: "nomu",
             explanation: "『nomimasu』(飲みます) es la forma educada, 『nomu』(飲む) es la forma diccionario."
         },
-        {
-            id: 5,
-            type: "dragdrop",
-            text: "Empareja los verbos: ________ significa 'hablar', ________ significa 'dormir', ________ significa 'jugar'",
-            parts: [
-                { text: "hanasu", correctPosition: 0 },
-                { text: "neru", correctPosition: 1 },
-                { text: "asobu", correctPosition: 2 }
-            ],
-            options: ["hanasu", "neru", "asobu", "suru", "kuru"],
-            explanation: "Verbos básicos: hanasu(hablar), neru(dormir), asobu(jugar), suru(hacer), kuru(venir)"
-        },
+     {
+    id: 5,
+    type: "dragdrop",
+    text: "Empareja los verbos: ________ significa 'hablar', ________ significa 'dormir', ________ significa 'jugar'",
+    parts: [
+        { text: "hanasu" }, // Sin correctPosition
+        { text: "neru" },
+        { text: "asobu" }
+    ],
+    options: ["hanasu", "neru", "asobu", "suru", "kuru"],
+    explanation: "Verbos básicos: hanasu(hablar), neru(dormir), asobu(jugar), suru(hacer), kuru(venir)"
+},
         {
             id: 6,
             type: "multiple",
@@ -100,18 +100,18 @@ const examData = {
             correctAnswer: "kimasu",
             explanation: "『kuru』(来る) es forma diccionario, 『kimasu』(来ます) es forma educada."
         },
-        {
-            id: 9,
-            type: "dragdrop",
-            text: "Empareja los pronombres: ________ significa 'nosotros', ________ significa 'ella', ________ significa 'tú'",
-            parts: [
-                { text: "watashitachi", correctPosition: 0 },
-                { text: "kanojo", correctPosition: 1 },
-                { text: "anata", correctPosition: 2 }
-            ],
-            options: ["watashi", "watashitachi", "kanojo", "anata", "kare"],
-            explanation: "Pronombres: watashitachi(nosotros), kanojo(ella), anata(tú/usted)"
-        },
+       {
+    id: 9,
+    type: "dragdrop",
+    text: "Empareja los pronombres: ________ significa 'nosotros', ________ significa 'ella', ________ significa 'tú'",
+    parts: [
+        { text: "watashitachi" }, // Sin correctPosition
+        { text: "kanojo" },
+        { text: "anata" }
+    ],
+    options: ["watashi", "watashitachi", "kanojo", "anata", "kare"],
+    explanation: "Pronombres: watashitachi(nosotros), kanojo(ella), anata(tú/usted)"
+},
         {
             id: 10,
             type: "multiple",
@@ -152,18 +152,18 @@ const examData = {
             correctAnswer: 0,
             explanation: "Verdadero. 『tabemasu』 es forma educada, 『taberu』 es forma diccionario, ambas significan 'comer'."
         },
-        {
-            id: 14,
-            type: "dragdrop",
-            text: "Empareja las formas: ________ es forma educada de 'ver', ________ es forma diccionario de 'escuchar', ________ es forma educada de 'beber'",
-            parts: [
-                { text: "mimasu", correctPosition: 0 },
-                { text: "kiku", correctPosition: 1 },
-                { text: "nomimasu", correctPosition: 2 }
-            ],
-            options: ["mimasu", "miru", "kikimasu", "kiku", "nomimasu"],
-            explanation: "Formas verbales: mimasu(見ます - ver, educado), kiku(聞く - escuchar, diccionario), nomimasu(飲みます - beber, educado)"
-        },
+{
+    id: 14,
+    type: "dragdrop",
+    text: "Empareja las formas: ________ es forma educada de 'ver', ________ es forma diccionario de 'escuchar', ________ es forma educada de 'beber'",
+    parts: [
+        { text: "mimasu" }, // Sin correctPosition
+        { text: "kiku" },
+        { text: "nomimasu" }
+    ],
+    options: ["mimasu", "miru", "kikimasu", "kiku", "nomimasu"],
+    explanation: "Formas verbales: mimasu(見ます - ver, educado), kiku(聞く - escuchar, diccionario), nomimasu(飲みます - beber, educado)"
+}
         {
             id: 15,
             type: "multiple",
@@ -675,5 +675,6 @@ async function saveResultsToFirestore(results) {
 
 // Inicializar la aplicación
 displayQuestion();
+
 
 
