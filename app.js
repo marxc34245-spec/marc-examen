@@ -517,9 +517,14 @@ function calculateResults() {
                 isCorrect = userAnswer && userAnswer.toLowerCase().trim() === question.correctAnswer.toLowerCase().trim();
                 break;
             case "dragdrop":
-                isCorrect = question.parts.every((part, partIndex) => {
-                    return userAnswer && userAnswer[partIndex] === part.correctPosition;
-                });
+                // NUEVA LÓGICA: Comparar textos directamente
+                if (userAnswer && Array.isArray(userAnswer)) {
+                    isCorrect = question.parts.every((part, partIndex) => {
+                        const userSelectedIndex = userAnswer[partIndex];
+                        const userSelectedText = question.options[userSelectedIndex];
+                        return userSelectedText === part.text;
+                    });
+                }
                 break;
         }
         
@@ -543,10 +548,10 @@ function calculateResults() {
                     correctAnswerText = question.correctAnswer;
                     break;
                 case "dragdrop":
-                    userAnswerText = userAnswer ? question.parts.map((part, partIndex) => 
-                        question.options[userAnswer[partIndex]]).join(", ") : "No respondida";
-                    correctAnswerText = question.parts.map(part => 
-                        question.options[part.correctPosition]).join(", ");
+                    // CORREGIDO: Usar la misma lógica que en calculateResults
+                    userAnswerText = userAnswer ? userAnswer.map(index => 
+                        question.options[index]).join(", ") : "No respondida";
+                    correctAnswerText = question.parts.map(part => part.text).join(", ");
                     break;
             }
             
@@ -610,7 +615,9 @@ async function saveResultsToFirestore(results) {
             score: results.score,
             correctAnswers: results.correctAnswers,
             totalQuestions: examData.questions.length,
-            timestamp: serverTimestamp()
+            timestamp: serverTimestamp(),
+            userAnswers: userAnswers, // Ahora es más simple
+            incorrectQuestions: results.incorrectQuestions
         };
         
         // Convertir userAnswers a formato compatible con Firestore
@@ -668,4 +675,5 @@ async function saveResultsToFirestore(results) {
 
 // Inicializar la aplicación
 displayQuestion();
+
 
