@@ -163,7 +163,7 @@ const examData = {
     ],
     options: ["mimasu", "miru", "kikimasu", "kiku", "nomimasu"],
     explanation: "Formas verbales: mimasu(見ます - ver, educado), kiku(聞く - escuchar, diccionario), nomimasu(飲みます - beber, educado)"
-}
+},
         {
             id: 15,
             type: "multiple",
@@ -675,6 +675,7 @@ async function saveResultsToFirestore(results) {
 
 // Inicializar la aplicación
 displayQuestion();
+
 
 
 
