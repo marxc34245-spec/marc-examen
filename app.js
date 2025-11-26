@@ -19,12 +19,201 @@ const db = getFirestore(app);
 // Datos del examen con diferentes tipos de preguntas
 // Datos del examen para practicar japonés - Verbos y Pronombres
 const examData = {
-    title: "Tesuto - Nihongo no joshi to doushi",
+    title: "Tesuto - Joshi, Doushi, Daimeishi",
     questions: [
         {
             id: 1,
             type: "multiple",
-            text: "¿Qué partícula japonesa se usa para marcar el tema de la oración?",
+            text: "¿Cómo se dice 'Yo como pan' usando las partículas correctas?",
+            options: [
+                "Watashi wa pan o tabemasu",
+                "Watashi ga pan o tabemasu", 
+                "Watashi no pan o tabemasu",
+                "Watashi wa pan ni tabemasu"
+            ],
+            correctAnswer: 0,
+            explanation: "『wa』 para el tema, 『o』 para objeto directo. Watashi wa pan o tabemasu."
+        },
+        {
+            id: 2,
+            type: "multiple",
+            text: "¿Qué partícula usa 'Kanojo wa mizu o nomimasu' para el objeto directo?",
+            options: [
+                "o",
+                "wa", 
+                "ga",
+                "ni"
+            ],
+            correctAnswer: 0,
+            explanation: "『o』 marca el objeto directo. Ella bebe agua."
+        },
+        {
+            id: 3,
+            type: "truefalse",
+            text: "『Watashi wa tomodachi to asobimasu』 significa 'Yo juego con mi amigo'.",
+            correctAnswer: 0,
+            explanation: "Verdadero. 『to』 significa 'con', 『asobimasu』 es 'jugar'."
+        },
+        {
+            id: 4,
+            type: "fillblank",
+            text: "Completa: Watashi________nihongo o hanashimasu. (partícula de tema)",
+            correctAnswer: "wa",
+            explanation: "『wa』 marca el tema. Yo hablo japonés."
+        },
+        {
+            id: 5,
+            type: "dragdrop",
+            text: "Empareja los verbos: ________ (comer), ________ (beber), ________ (dormir)",
+            parts: [
+                { text: "tabemasu" },
+                { text: "nomimasu" },
+                { text: "nemasu" }
+            ],
+            options: ["tabemasu", "nomimasu", "nemasu", "ikimasu", "kimasu"],
+            explanation: "Verbos básicos: tabemasu (comer), nomimasu (beber), nemasu (dormir)"
+        },
+        {
+            id: 6,
+            type: "multiple",
+            text: "¿Cómo se dice 'Nosotros vamos a Japón'?",
+            options: [
+                "Watashitachi wa Nihon ni ikimasu",
+                "Watashitachi ga Nihon o ikimasu", 
+                "Watashi wa Nihon ni ikimasu",
+                "Watashitachi no Nihon ni ikimasu"
+            ],
+            correctAnswer: 0,
+            explanation: "『watashitachi』 (nosotros), 『wa』 (tema), 『ni』 (dirección), 『ikimasu』 (ir)."
+        },
+        {
+            id: 7,
+            type: "truefalse",
+            text: "『Kare wa terebi o mimasu』 usa correctamente la partícula para objeto directo.",
+            correctAnswer: 0,
+            explanation: "Verdadero. 『o』 marca 'terebi' (TV) como objeto directo de 'mimasu' (ver)."
+        },
+        {
+            id: 8,
+            type: "fillblank",
+            text: "Completa: ________ wa Tokyo ni ikimasu. (ellos)",
+            correctAnswer: "Karera",
+            explanation: "『Karera』 significa 'ellos'. Karera wa Tokyo ni ikimasu - Ellos van a Tokio."
+        },
+        {
+            id: 9,
+            type: "dragdrop",
+            text: "Empareja pronombres: ________ (yo), ________ (tú), ________ (ella)",
+            parts: [
+                { text: "watashi" },
+                { text: "anata" },
+                { text: "kanojo" }
+            ],
+            options: ["watashi", "anata", "kare", "kanojo", "watashitachi"],
+            explanation: "Pronombres: watashi (yo), anata (tú), kanojo (ella)"
+        },
+        {
+            id: 10,
+            type: "multiple",
+            text: "¿Qué verbo significa 'hacer'?",
+            options: [
+                "shimasu",
+                "ikimasu", 
+                "kimasu",
+                "tabemasu"
+            ],
+            correctAnswer: 0,
+            explanation: "『shimasu』 significa 'hacer'. Es un verbo muy común en japonés."
+        },
+        {
+            id: 11,
+            type: "truefalse",
+            text: "『Anata wa nihongo o hanashimasu ka』 es una pregunta correcta.",
+            correctAnswer: 0,
+            explanation: "Verdadero. 『ka』 al final hace pregunta: ¿Hablas japonés?"
+        },
+        {
+            id: 12,
+            type: "fillblank",
+            text: "Completa: Kanojo________ongaku o kikimasu. (partícula de sujeto)",
+            correctAnswer: "ga",
+            explanation: "『ga』 marca el sujeto. Ella escucha música."
+        },
+        {
+            id: 13,
+            type: "dragdrop",
+            text: "Completa: ________ wa ________ to ________ o tabemasu. (yo, amigo, pan)",
+            parts: [
+                { text: "Watashi" },
+                { text: "tomodachi" },
+                { text: "pan" }
+            ],
+            options: ["Watashi", "anata", "tomodachi", "pan", "mizu"],
+            explanation: "Watashi wa tomodachi to pan o tabemasu - Yo como pan con mi amigo."
+        },
+        {
+            id: 14,
+            type: "multiple",
+            text: "¿Qué significa 'Watashi mo ikimasu'?",
+            options: [
+                "Yo también voy",
+                "Yo voy", 
+                "Él también va",
+                "Nosotros vamos"
+            ],
+            correctAnswer: 0,
+            explanation: "『mo』 significa 'también'. Watashi mo ikimasu - Yo también voy."
+        },
+        {
+            id: 15,
+            type: "truefalse",
+            text: "『Kare no hon』 significa 'el libro de él'.",
+            correctAnswer: 0,
+            explanation: "Verdadero. 『no』 indica posesión. Kare no hon - El libro de él/su libro."
+        },
+        {
+            id: 16,
+            type: "fillblank",
+            text: "Completa: ________ wa gakusei desu. (yo)",
+            correctAnswer: "Watashi",
+            explanation: "Watashi wa gakusei desu - Yo soy estudiante."
+        },
+        {
+            id: 17,
+            type: "multiple",
+            text: "¿Cómo se dice 'Ellas beben agua'?",
+            options: [
+                "Kanojotachi wa mizu o nomimasu",
+                "Kanojotachi ga mizu o nomimasu", 
+                "Karera wa mizu o nomimasu",
+                "Kanojo wa mizu o nomimasu"
+            ],
+            correctAnswer: 0,
+            explanation: "『Kanojotachi』 (ellas), 『wa』 (tema), 『o』 (objeto), 『nomimasu』 (beber)."
+        },
+        {
+            id: 18,
+            type: "dragdrop",
+            text: "Empareja: ________ (ir), ________ (venir), ________ (ver)",
+            parts: [
+                { text: "ikimasu" },
+                { text: "kimasu" },
+                { text: "mimasu" }
+            ],
+            options: ["ikimasu", "kimasu", "mimasu", "tabemasu", "nemasu"],
+            explanation: "Verbos de movimiento: ikimasu (ir), kimasu (venir), mimasu (ver)"
+        },
+        {
+            id: 19,
+            type: "fillblank",
+            text: "Completa: Watashitachi________resutoran________tabemasu. (en/de)",
+            correctAnswer: "de",
+            explanation: "『de』 indica lugar de acción. Comemos en el restaurante."
+        },
+        {
+            id: 20,
+            type: "multiple",
+            text: "¿Qué partícula se necesita para: 'Anata________nihongo ga hanasemasu ka'?",
             options: [
                 "wa",
                 "ga", 
@@ -32,196 +221,7 @@ const examData = {
                 "ni"
             ],
             correctAnswer: 0,
-            explanation: "『wa』 se usa para marcar el tema. Ejemplo: Watashi wa gakusei desu - En cuanto a mí, soy estudiante."
-        },
-        {
-            id: 2,
-            type: "multiple",
-            text: "¿Cómo se dice 'Yo como pan' en japonés (usando romaji)?",
-            options: [
-                "Watashi wa pan o tabemasu",
-                "Watashi ga pan o tabemasu", 
-                "Watashi wa pan ni tabemasu",
-                "Watashi no pan o tabemasu"
-            ],
-            correctAnswer: 0,
-            explanation: "『wa』 para el tema (yo), 『o』 para el objeto directo (pan), y 『tabemasu』 para comer."
-        },
-        {
-            id: 3,
-            type: "truefalse",
-            text: "La partícula 『ga』 marca el sujeto gramatical de la oración.",
-            correctAnswer: 0,
-            explanation: "Verdadero. 『ga』 marca al que realiza la acción. Ejemplo: Neko ga imasu - Hay un gato."
-        },
-        {
-            id: 4,
-            type: "fillblank",
-            text: "Completa la oración: Watashi wa tomodachi________eiga o mimasu. (con/to)",
-            correctAnswer: "to",
-            explanation: "『to』 significa 'con'. Tomodachi to eiga o mimasu - Veo una película con mi amigo."
-        },
-        {
-            id: 5,
-            type: "dragdrop",
-            text: "Empareja las partículas con sus funciones: ________ (tema), ________ (objeto directo), ________ (lugar de acción)",
-            parts: [
-                { text: "wa" },
-                { text: "o" },
-                { text: "de" }
-            ],
-            options: ["wa", "ga", "o", "ni", "de"],
-            explanation: "Funciones: wa (tema), o (objeto directo), de (lugar donde ocurre la acción)"
-        },
-        {
-            id: 6,
-            type: "multiple",
-            text: "¿Qué partícula se usa para indicar posesión?",
-            options: [
-                "no",
-                "ni", 
-                "e",
-                "to"
-            ],
-            correctAnswer: 0,
-            explanation: "『no』 indica posesión. Ejemplo: Watashi no hon - Mi libro."
-        },
-        {
-            id: 7,
-            type: "truefalse",
-            text: "『ka』 al final de una oración afirmativa la convierte en pregunta.",
-            correctAnswer: 0,
-            explanation: "Verdadero. Ejemplo: Genki desu ka - ¿Estás bien?"
-        },
-        {
-            id: 8,
-            type: "fillblank",
-            text: "Completa: Kanojo________mizu o nomimasu. (ella/ga)",
-            correctAnswer: "ga",
-            explanation: "『ga』 marca el sujeto. Kanojo ga mizu o nomimasu - Ella bebe agua."
-        },
-        {
-            id: 9,
-            type: "dragdrop",
-            text: "Empareja las partículas: ________ (dirección), ________ (tiempo), ________ (medio/método)",
-            parts: [
-                { text: "ni" },
-                { text: "ni" },
-                { text: "de" }
-            ],
-            options: ["wa", "ni", "de", "e", "no"],
-            explanation: "Partículas: ni (dirección/tiempo), ni (tiempo), de (medio/método)"
-        },
-        {
-            id: 10,
-            type: "multiple",
-            text: "¿Cómo se dice 'Ellos van a Japón' en japonés (romaji)?",
-            options: [
-                "Karera wa Nihon ni ikimasu",
-                "Karera ga Nihon o ikimasu", 
-                "Karera wa Nihon o ikimasu",
-                "Karera no Nihon ni ikimasu"
-            ],
-            correctAnswer: 0,
-            explanation: "『wa』 para el tema, 『ni』 para dirección, 『ikimasu』 para ir."
-        },
-        {
-            id: 11,
-            type: "truefalse",
-            text: "La partícula 『mo』 significa 'también' y reemplaza a 『wa』, 『ga』, o 『o』.",
-            correctAnswer: 0,
-            explanation: "Verdadero. Ejemplo: Watashi mo ikimasu - Yo también voy."
-        },
-        {
-            id: 12,
-            type: "fillblank",
-            text: "Completa: Watashitachi________toshokan________benkyou shimasu. (en/de)",
-            correctAnswer: "de",
-            explanation: "『de』 indica el lugar donde ocurre la acción. Toshokan de benkyou shimasu - Estudiamos en la biblioteca."
-        },
-        {
-            id: 13,
-            type: "dragdrop",
-            text: "Completa la oración: Watashi________tomodachi________Tokyo________ikimasu.",
-            parts: [
-                { text: "wa" },
-                { text: "to" },
-                { text: "e" }
-            ],
-            options: ["wa", "ga", "to", "ni", "e"],
-            explanation: "Oración completa: Watashi wa tomodachi to Tokyo e ikimasu - Voy a Tokio con mi amigo."
-        },
-        {
-            id: 14,
-            type: "multiple",
-            text: "¿Qué partícula se usa para marcar el objeto directo?",
-            options: [
-                "o",
-                "ga", 
-                "ni",
-                "de"
-            ],
-            correctAnswer: 0,
-            explanation: "『o』 marca el objeto directo. Ejemplo: Hon o yomimasu - Leo un libro."
-        },
-        {
-            id: 15,
-            type: "truefalse",
-            text: "『e』 y 『ni』 son intercambiables cuando indican dirección.",
-            correctAnswer: 0,
-            explanation: "Verdadero. Ambas pueden indicar dirección, pero 『e』 enfatiza más el movimiento hacia un lugar."
-        },
-        {
-            id: 16,
-            type: "fillblank",
-            text: "Completa: Anata________namae wa nan desu ka. (posesión/no)",
-            correctAnswer: "no",
-            explanation: "『no』 indica posesión. Anata no namae - Tu nombre."
-        },
-        {
-            id: 17,
-            type: "multiple",
-            text: "¿Cómo se dice 'Yo también bebo agua' en japonés (romaji)?",
-            options: [
-                "Watashi mo mizu o nomimasu",
-                "Watashi wa mizu mo nomimasu", 
-                "Watashi mo mizu ga nomimasu",
-                "Watashi wa mizu o nomimasu mo"
-            ],
-            correctAnswer: 0,
-            explanation: "『mo』 significa 'también' y reemplaza a 『wa』. Watashi mo mizu o nomimasu."
-        },
-        {
-            id: 18,
-            type: "dragdrop",
-            text: "Empareja las partículas con sus usos: ________ (posesión), ________ (lista/con), ________ (pregunta)",
-            parts: [
-                { text: "no" },
-                { text: "to" },
-                { text: "ka" }
-            ],
-            options: ["wa", "ga", "no", "to", "ka"],
-            explanation: "Usos: no (posesión), to (lista/con), ka (pregunta)"
-        },
-        {
-            id: 19,
-            type: "fillblank",
-            text: "Completa: Kare________sanji________kimasu. (a/ni)",
-            correctAnswer: "wa",
-            explanation: "Oración completa: Kare wa sanji ni kimasu - Él viene a las 3."
-        },
-        {
-            id: 20,
-            type: "multiple",
-            text: "¿Qué partícula falta en esta pregunta: Genki desu_____?",
-            options: [
-                "ka",
-                "wa", 
-                "ga",
-                "o"
-            ],
-            correctAnswer: 0,
-            explanation: "『ka』 al final convierte la oración en pregunta. Genki desu ka - ¿Estás bien?"
+            explanation: "『wa』 para el tema. ¿Puedes hablar japonés?"
         }
     ]
 };
@@ -721,6 +721,7 @@ async function saveResultsToFirestore(results) {
 
 // Inicializar la aplicación
 displayQuestion();
+
 
 
 
